@@ -62,7 +62,29 @@
       margin-top: 20px;
       font-size: 18px;
     }
+    .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            border-radius: 10px;
 
+        }
+        .modal-content {
+            background-color: white;
+            margin: 25% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 20%;
+            text-align: center;
+        }
+        .modal button {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -72,12 +94,21 @@
   <input type="number" id="number">
   <br><br>
   <button onclick="calculate()">Calculate</button>
+  <br><br>
+  <button onclick="clearbutton()" fdprocessedid="pogi">Clear</button>
   <div class="result">
     <p id="factorial"></p>
     <p id="sum"></p>
     <p id="average"></p>
 
   </div>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to clear this input?</p>
+        <button id="confirmClear">Yes</button>
+        <button id="cancelClear">No</button>
+    </div>
+    <a href="index.html" style="position:absolute; right:5px; bottom:5px;">Back to Home Page</a>
     <script>
         function calculate() {
       var number = parseInt(document.getElementById("number").value);
@@ -96,6 +127,26 @@
       document.getElementById("factorial").innerHTML = "Factorial: " + factorial;
       document.getElementById("sum").innerHTML = "Sum: " + sum;
       document.getElementById("average").innerHTML = "Average: " + average;
+    }
+
+    function clearbutton() {
+        var modal = document.getElementById('myModal');
+        modal.style.display = "block";
+
+        var confirmButton = document.getElementById('confirmClear');
+        var cancelButton = document.getElementById('cancelClear');
+        
+        confirmButton.onclick = function () { 
+            document.getElementById("number").value = "";
+            document.getElementById("factorial").innerHTML = "";
+            document.getElementById("sum").innerHTML = "";
+            document.getElementById("average").innerHTML = "";
+            modal.style.display = "none";
+        };
+
+        cancelButton.onclick = function () {
+            modal.style.display = "none";
+        };
     }
   
         </script>
