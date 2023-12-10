@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>Conversion</title>
@@ -70,6 +70,29 @@
       color: red;
       margin-top: 10px;
     }
+    .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            border-radius: 10px;
+
+        }
+        .modal-content {
+            background-color: white;
+            margin: 25% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 20%;
+            text-align: center;
+        }
+        .modal button {
+            margin-top: 10px;
+        }     
   </style>
 </head>
 <body>
@@ -99,9 +122,15 @@
       <button onclick="feetToMeters()">Convert</button>
       <button id="clearer4">Clear</button>
       <div id="feetToMetersResult" class="result"></div>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you want to clear this input?</p>
+            <button id="confirmClear">Yes</button>
+            <button id="cancelClear">No</button>
+        </div>
     </div>
   </div>
-    
+    <a href="index.html" style="position:absolute; right:5px; bottom:5px;">Back to Home Page</a>
   
 </body>
 <script>
@@ -128,7 +157,35 @@ function celsiusToFahrenheit() {
       var meters = feet / 3.28084;
       document.getElementById('feetToMetersResult').innerHTML = meters + " m";
     }
-
+    function clearbutton(targetInputId, targetResultId) {
+            var modal = document.getElementById('myModal');
+            modal.style.display = "block";
+            var confirmButton = document.getElementById('confirmClear');
+            var cancelButton = document.getElementById('cancelClear');
+            confirmButton.onclick = function () {
+                var input = document.getElementById(targetInputId);
+                var output = document.getElementById(targetResultId);
+                modal.style.display = "none";
+                input.value = "";
+                output.value = "";
+            }
+            cancelButton.onclick = function () {
+                modal.style.display = "none";
+            }
+        }
+            
+    document.getElementById("clearer1").addEventListener("click", function () {
+            clearbutton("celsius");
+        });
+        document.getElementById("clearer2").addEventListener("click", function () {
+            clearbutton("fahrenheit");
+        });
+        document.getElementById("clearer3").addEventListener("click", function () {
+            clearbutton("meter");
+        });
+        document.getElementById("clearer4").addEventListener("click", function () {
+            clearbutton("feet");
+        });
     </script>
 
 </html>
